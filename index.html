@@ -399,6 +399,21 @@
 <script src="assest/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/jquery-3.6.4.min.js"></script>
 <script>
+    var customers=[];
+
+    function addToArray(){
+        var customer={
+             customerID : $('#customerIDC').val(),
+             name : $('#customerNameC').val(),
+             address : $('#customerAddressC').val(),
+             mobile : $('#customerMobileC').val(),
+             salary : $('#customerSalaryC').val()
+        }
+        customers.push(customer);
+        console.log(customers);
+    }
+
+
     function viewCustomersForm(){
         $('#homeSection').css("display","none")
         $('#customerSection').css("display","inherit")
@@ -489,6 +504,7 @@
         var data2=`<option value="${name}">`
         $('#tableCustomerBody').append(data);
         $('#datalistOptions').append(data2);
+        addToArray();
         closeNewCustomer();
     }
 
