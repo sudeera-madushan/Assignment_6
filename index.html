@@ -401,6 +401,8 @@
 <script>
     var customers=[];
 
+
+
     function addToArray(){
         var customer={
              customerID : $('#customerIDC').val(),
@@ -411,8 +413,27 @@
         //    dsddsdds
         }
 
+
         customers.push(customer);
         console.log(customers);
+        loadData();
+    }
+    function loadData(){
+        customers.map((result,index)=>{
+            var data=`
+                <tr>
+                    <th scope="row">${result.customerID}</th>
+                    <td>${result.name}</td>
+                    <td>${result.address}</td>
+                    <td>${result.mobile}</td>
+                    <td>${result.salary}</td>
+                    <td width="15%">
+                        <button class="btn btn-success" onclick="showNewCustomer()">Edite</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>`
+            $('#tableCustomerBody').append(data);
+        })
     }
 
 
@@ -537,7 +558,7 @@
     $('#navViewHome').click(viewHomeForm);
     $('#btnNewCustomer').click(showNewCustomer);
     $('#btnCanceNewCustomer').click(closeNewCustomer);
-    $('#btnSaveNewCustomer').click(saveNewCustomer);
+    $('#btnSaveNewCustomer').click(addToArray);
     $('#btnNewItem').click(showNewItem);
     $('#btnCancelNewItem').click(closeNewItem);
     $('#btnSaveNewItem').click(saveNewItem);
