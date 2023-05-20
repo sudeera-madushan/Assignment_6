@@ -399,28 +399,58 @@
 <script src="assest/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/jquery-3.6.4.min.js"></script>
 <script>
-    var customers=[];
+    const cusData="DATA";
+    const itemData="ITEMS";
 
 
-
-    function addToArray(){
-        var customer={
-             customerID : $('#customerIDC').val(),
-             name : $('#customerNameC').val(),
-             address : $('#customerAddressC').val(),
-             mobile : $('#customerMobileC').val(),
-             salary : $('#customerSalaryC').val()
-        //    dsddsdds
+    function addToCustomerArray(){
+        let pre_data = localStorage.getItem(cusData);
+        let data_arr=[];
+        if(pre_data) {
+            data_arr = JSON.parse(pre_data);
         }
-
-
-        customers.push(customer);
-        console.log(customers);
-        loadData();
+        let customer={
+            customerID : $('#customerIDC').val(),
+            name : $('#customerNameC').val(),
+            address : $('#customerAddressC').val(),
+            mobile : $('#customerMobileC').val(),
+            salary : $('#customerSalaryC').val()
+        }
+           let index =checkCusResentId(data_arr,customer.customerID);
+           if (index!=-1) {
+               customer.name = $('#customerNameC').val(),
+               customer.address = $('#customerAddressC').val(),
+               customer.mobile = $('#customerMobileC').val(),
+               customer.salary = $('#customerSalaryC').val()
+               data_arr.splice(index,1,customer)
+           }else {
+               console.log("+++++++++")
+               data_arr.unshift(customer);
+           }
+        localStorage.setItem(cusData, JSON.stringify(data_arr));
+        loadCustomerData();
     }
-    function loadData(){
-        customers.map((result,index)=>{
-            var data=`
+
+    function checkCusResentId(arr,id){
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].customerID===id) {
+                console.log(true);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function loadCustomerData(){
+        console.log("run wenoo")
+        let pre_data=localStorage.getItem(cusData);
+        let customer_data_arr=JSON.parse(pre_data);
+
+        if (customer_data_arr) {
+            $('#tableCustomerBody').empty();
+            let indext=0;
+            customer_data_arr.map((result, index) => {
+                var data = `
                 <tr>
                     <th scope="row">${result.customerID}</th>
                     <td>${result.name}</td>
@@ -428,14 +458,93 @@
                     <td>${result.mobile}</td>
                     <td>${result.salary}</td>
                     <td width="15%">
-                        <button class="btn btn-success" onclick="showNewCustomer()">Edite</button>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-success"  onclick="showNewCustomer(${index},true)">Edite</button>
+                        <button class="btn btn-danger" onclick="deleteCustomer(${index})">Delete</button>
                     </td>
                 </tr>`
-            $('#tableCustomerBody').append(data);
-        })
+                $('#tableCustomerBody').append(data);
+
+            })
+
+        }
+        closeNewCustomer();
     }
 
+    function deleteCustomer(i){
+        let customers=JSON.parse(localStorage.getItem(cusData));
+        customers.splice(i,1);
+        localStorage.setItem(cusData,JSON.stringify(customers));
+        loadCustomerData();
+    }
+
+    function addToItemArray(){
+        let pre_data = localStorage.getItem(itemData);
+        let data_arr=[];
+        if(pre_data) {
+            data_arr = JSON.parse(pre_data);
+        }
+        let item={
+            itemCode : $('#itemCodeI').val(),
+            name : $('#itemNameI').val(),
+            qty : $('#itemQTYI').val(),
+            price : $('#itemPriceI').val()
+        }
+           let index =checkItemRecent(data_arr,item.itemCode);
+           if (index!=-1) {
+               item.name = $('#itemNameI').val(),
+               item.qty = $('#itemQTYI').val(),
+               item.price = $('#itemPriceI').val()
+               data_arr.splice(index,1,item)
+           }else {
+               data_arr.unshift(item);
+           }
+        localStorage.setItem(itemData, JSON.stringify(data_arr));
+        loadItemData();
+    }
+
+    function checkItemRecent(arr,id){
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].itemCode===id) {
+                console.log(true);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function loadItemData(){
+        let pre_data=localStorage.getItem(itemData);
+        let item_data_arr=JSON.parse(pre_data);
+
+        if (item_data_arr) {
+            $('#tableItemBody').empty();
+            item_data_arr.map((result, index) => {
+                var data = `
+                <tr>
+                    <th scope="row">${result.itemCode}</th>
+                    <td>${result.name}</td>
+                    <td>${result.qty}</td>
+                    <td>${result.price}</td>
+                    <td width="15%">
+                        <button class="btn btn-success"  onclick="showNewItem(${index},true)">Edite</button>
+                        <button class="btn btn-danger" onclick="deleteItem(${index})">Delete</button>
+                    </td>
+                </tr>`
+                $('#tableItemBody').append(data);
+
+            })
+
+        }
+        closeNewItem();
+    }
+
+    function deleteItem(i){
+        let items=JSON.parse(localStorage.getItem(itemData));
+        items.splice(1,1);
+        console.log(i)
+        localStorage.setItem(itemData,JSON.stringify(items));
+        loadItemData();
+    }
 
     function viewCustomersForm(){
         $('#homeSection').css("display","none")
@@ -463,12 +572,22 @@
         $('#orderSection').css("display","inherit")
     }
 
-    function showNewCustomer(){
-        $('#customerIDC').val("");
+    function showNewCustomer(id,boo) {
+        if (boo){
+
+            let customerArr=JSON.parse(localStorage.getItem(cusData));
+            $('#customerIDC').val(customerArr[id].customerID);
+            $('#customerNameC').val(customerArr[id].name);
+            $('#customerAddressC').val(customerArr[id].address);
+            $('#customerMobileC').val(customerArr[id].mobile);
+            $('#customerSalaryC').val(customerArr[id].salary);
+        }else {
+        $('#customerIDC').val(id);
         $('#customerNameC').val("");
         $('#customerAddressC').val("");
         $('#customerMobileC').val("");
         $('#customerSalaryC').val("");
+        }
         $('#newCustomerForm').css({
             visibility: "visible",
             top:"50%",
@@ -476,11 +595,19 @@
         })
     }
 
-    function showNewItem(){
-        $('#itemCodeI').val("");
-        $('#itemNameI').val("");
-        $('#itemQTYI').val("");
-        $('#itemPriceI').val("");
+    function showNewItem(id,boo){
+        if (boo){
+            let item=JSON.parse(localStorage.getItem(itemData));
+            $('#itemCodeI').val(item[id].itemCode);
+            $('#itemNameI').val(item[id].name);
+            $('#itemQTYI').val(item[id].qty);
+            $('#itemPriceI').val(item[id].price);
+        }else {
+            $('#itemCodeI').val("");
+            $('#itemNameI').val("");
+            $('#itemQTYI').val("");
+            $('#itemPriceI').val("");
+        }
         $('#newItemForm').css({
             visibility: "visible",
             top:"50%",
@@ -505,32 +632,6 @@
             visibility: "hidden"
         })
     }
-
-    function saveNewCustomer(){
-        let customerID = $('#customerIDC').val();
-        let name = $('#customerNameC').val();
-        let address = $('#customerAddressC').val();
-        let mobile = $('#customerMobileC').val();
-        let salary = $('#customerSalaryC').val();
-        var data=`
-                <tr>
-                    <th scope="row">${customerID}</th>
-                    <td>${name}</td>
-                    <td>${address}</td>
-                    <td>${mobile}</td>
-                    <td>${salary}</td>
-                    <td width="15%">
-                        <button class="btn btn-success" onclick="showNewCustomer()">Edite</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>`
-        var data2=`<option value="${name}">`
-        $('#tableCustomerBody').append(data);
-        $('#datalistOptions').append(data2);
-        addToArray();
-        closeNewCustomer();
-    }
-
     function saveNewItem(){
         let itemCode = $('#itemCodeI').val();
         let name = $('#itemNameI').val();
@@ -556,17 +657,18 @@
     $('#btnViewCustomers').click(viewCustomersForm);
     $('#navViewCustomer ').click(viewCustomersForm);
     $('#navViewHome').click(viewHomeForm);
-    $('#btnNewCustomer').click(showNewCustomer);
+    $('#btnNewCustomer').click(function () {showNewCustomer(0,false)});
     $('#btnCanceNewCustomer').click(closeNewCustomer);
-    $('#btnSaveNewCustomer').click(addToArray);
+    $('#btnSaveNewCustomer').click(addToCustomerArray);
     $('#btnNewItem').click(showNewItem);
     $('#btnCancelNewItem').click(closeNewItem);
-    $('#btnSaveNewItem').click(saveNewItem);
+    $('#btnSaveNewItem').click(addToItemArray);
     $('#btnViewItems').click(viewItemForm);
     $('#navViewItem').click(viewItemForm);
     $('#btnViewOrders').click(viewOrderForm);
     $('#navViewOrders').click(viewOrderForm);
-
+loadCustomerData();
+loadItemData()
 </script>
 </body>
 </html>
