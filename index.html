@@ -196,7 +196,7 @@
     </div>
     <div class="row bg-light rounded ">
         <div class="col-12" style="height: 500px">
-            <table class="table table-light rounded">
+            <table class="table table-light rounded" id="customer-table">
                 <thead class="table-danger">
                 <tr>
                     <th scope="col">Customer ID</th>
@@ -273,31 +273,31 @@
             <div class="row">
                 <div class="col-6">
                     <label for="customerIDC" class="form-check-label">Customer ID :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" id="customerIDOrder" placeholder="C001" aria-label="customerID" >
                 </div>
                 <div class="col-6 p-3">
-                    <button class="btn btn-success">Search</button>
+                    <button class="btn btn-success" id="searchCusOrder">Search</button>
                 </div>
             </div>
             <div class="row">
 
                 <div class="col-6">
                     <label for="customerIDC" class="form-check-label">Name :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" placeholder="C001" id="customerNameOrder" aria-label="customerID" >
                 </div>
                 <div class="col-6">
-                    <label for="customerIDC" class="form-check-label">Salary :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <label for="customerIDC" class="form-check-label">Address :</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="C001" id="customerAddressOrder" aria-label="customerID" >
                 </div>
             </div>
             <div class="row">
                 <div>
                     <label for="customerIDC" class="form-check-label">Salary :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" placeholder="C001" id="customerSalaryOrder" aria-label="customerID" >
                 </div>
                 <div>
-                    <label for="customerIDC" class="form-check-label">Address :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <label for="customerIDC" class="form-check-label">Mobile :</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="C001" id="customerMobileOrder" aria-label="customerID" >
                 </div>
             </div>
             <br>
@@ -308,36 +308,36 @@
             <div class="row">
                 <div class="col-6">
                     <label for="customerIDC" class="form-check-label">Item Code :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="I001" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" id="itemCodeOrder" placeholder="I001" aria-label="customerID" >
                 </div>
                 <div class="col-6 p-3">
-                    <button class="btn btn-success">Search</button>
+                    <button class="btn btn-success" id="searchItemOrder" >Search</button>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12">
                     <label for="customerIDC" class="form-check-label">Name :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="Item" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" id="itemNameOrder" placeholder="Item" aria-label="customerID" >
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <label for="customerIDC" class="form-check-label">QTY On Hand :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="0" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" id="itemQtyOnOrder" placeholder="0" aria-label="customerID" >
                 </div>
                 <div class="col-6">
                     <label for="customerIDC" class="form-check-label">Price :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="0.0" aria-label="customerID" >
+                    <input class="form-control form-control-sm" type="text" id="itemPriceOrder" placeholder="0.0" aria-label="customerID" >
                 </div>
             </div>
             <div class="row">
                 <div>
                     <label for="customerIDC" class="form-check-label">Quantity :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="0" aria-label="customerID" >
+                    <input class="form-control form-control-sm" id="itemQuentityOrder" type="text" placeholder="0" aria-label="customerID" >
                 </div>
                 <div class="text-end p-2">
-                    <button class="btn btn-success ">Add Cart</button>
+                    <button class="btn btn-success " id="addToCartBtn">Add Cart</button>
                 </div>
             </div>
             <br>
@@ -379,13 +379,14 @@
     </div>
     <div class="row bg-light rounded">
         <div class="col-12 p-3" style="height: 200px">
-            <table class="table table-light rounded">
+            <table class="table table-light rounded " >
                 <thead class="table-danger">
                 <tr>
                     <th scope="col">Item Code</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">QTY</th>
+                    <th scope="col">Total</th>
                     <th scope="col">Edit</th>
                 </tr>
                 </thead>
@@ -398,277 +399,35 @@
 
 <script src="assest/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/jquery-3.6.4.min.js"></script>
+<script type="module" src="model/Customer.js"></script>
+<script  type="module" src="model/Item.js"></script>
+<script type="module"  src="model/OrderDetail.js"></script>
+<script type="module"  src="model/Order.js"></script>
+<script type="module" src="controller/CustomerController.js"></script>
+<script type="module"  src="controller/ItemController.js"></script>
+<script type="module"  src="controller/OrderController.js"></script>
+<script type="module"  src="controller/DashboardController.js"></script>
 <script>
-    const cusData="DATA";
-    const itemData="ITEMS";
+    // // const cusData="DATA";
+    // const itemData="ITEMS";
+    // const cartData="CART";
 
 
-    function addToCustomerArray(){
-        let pre_data = localStorage.getItem(cusData);
-        let data_arr=[];
-        if(pre_data) {
-            data_arr = JSON.parse(pre_data);
-        }
-        let customer={
-            customerID : $('#customerIDC').val(),
-            name : $('#customerNameC').val(),
-            address : $('#customerAddressC').val(),
-            mobile : $('#customerMobileC').val(),
-            salary : $('#customerSalaryC').val()
-        }
-           let index =checkCusResentId(data_arr,customer.customerID);
-           if (index!=-1) {
-               customer.name = $('#customerNameC').val(),
-               customer.address = $('#customerAddressC').val(),
-               customer.mobile = $('#customerMobileC').val(),
-               customer.salary = $('#customerSalaryC').val()
-               data_arr.splice(index,1,customer)
-           }else {
-               console.log("+++++++++")
-               data_arr.unshift(customer);
-           }
-        localStorage.setItem(cusData, JSON.stringify(data_arr));
-        loadCustomerData();
-    }
 
-    function checkCusResentId(arr,id){
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].customerID===id) {
-                console.log(true);
-                return i;
-            }
-        }
-        return -1;
-    }
+    // function checkCartResentId(arr,id){
+    //     for (let i = 0; i < arr.length; i++) {
+    //         if (arr[i].customerID===id) {
+    //             return i;
+    //         }
+    //     }
+    //     return -1;
+    // }
 
-    function loadCustomerData(){
-        console.log("run wenoo")
-        let pre_data=localStorage.getItem(cusData);
-        let customer_data_arr=JSON.parse(pre_data);
 
-        if (customer_data_arr) {
-            $('#tableCustomerBody').empty();
-            let indext=0;
-            customer_data_arr.map((result, index) => {
-                var data = `
-                <tr>
-                    <th scope="row">${result.customerID}</th>
-                    <td>${result.name}</td>
-                    <td>${result.address}</td>
-                    <td>${result.mobile}</td>
-                    <td>${result.salary}</td>
-                    <td width="15%">
-                        <button class="btn btn-success"  onclick="showNewCustomer(${index},true)">Edite</button>
-                        <button class="btn btn-danger" onclick="deleteCustomer(${index})">Delete</button>
-                    </td>
-                </tr>`
-                $('#tableCustomerBody').append(data);
 
-            })
 
-        }
-        closeNewCustomer();
-    }
 
-    function deleteCustomer(i){
-        let customers=JSON.parse(localStorage.getItem(cusData));
-        customers.splice(i,1);
-        localStorage.setItem(cusData,JSON.stringify(customers));
-        loadCustomerData();
-    }
 
-    function addToItemArray(){
-        let pre_data = localStorage.getItem(itemData);
-        let data_arr=[];
-        if(pre_data) {
-            data_arr = JSON.parse(pre_data);
-        }
-        let item={
-            itemCode : $('#itemCodeI').val(),
-            name : $('#itemNameI').val(),
-            qty : $('#itemQTYI').val(),
-            price : $('#itemPriceI').val()
-        }
-           let index =checkItemRecent(data_arr,item.itemCode);
-           if (index!=-1) {
-               item.name = $('#itemNameI').val(),
-               item.qty = $('#itemQTYI').val(),
-               item.price = $('#itemPriceI').val()
-               data_arr.splice(index,1,item)
-           }else {
-               data_arr.unshift(item);
-           }
-        localStorage.setItem(itemData, JSON.stringify(data_arr));
-        loadItemData();
-    }
-
-    function checkItemRecent(arr,id){
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].itemCode===id) {
-                console.log(true);
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    function loadItemData(){
-        let pre_data=localStorage.getItem(itemData);
-        let item_data_arr=JSON.parse(pre_data);
-
-        if (item_data_arr) {
-            $('#tableItemBody').empty();
-            item_data_arr.map((result, index) => {
-                var data = `
-                <tr>
-                    <th scope="row">${result.itemCode}</th>
-                    <td>${result.name}</td>
-                    <td>${result.qty}</td>
-                    <td>${result.price}</td>
-                    <td width="15%">
-                        <button class="btn btn-success"  onclick="showNewItem(${index},true)">Edite</button>
-                        <button class="btn btn-danger" onclick="deleteItem(${index})">Delete</button>
-                    </td>
-                </tr>`
-                $('#tableItemBody').append(data);
-
-            })
-
-        }
-        closeNewItem();
-    }
-
-    function deleteItem(i){
-        let items=JSON.parse(localStorage.getItem(itemData));
-        items.splice(1,1);
-        console.log(i)
-        localStorage.setItem(itemData,JSON.stringify(items));
-        loadItemData();
-    }
-
-    function viewCustomersForm(){
-        $('#homeSection').css("display","none")
-        $('#customerSection').css("display","inherit")
-        $('#itemSection').css("display","none")
-        $('#orderSection').css("display","none")
-    }
-
-    function viewHomeForm(){
-        $('#homeSection').css("display","inherit")
-        $('#customerSection').css("display","none")
-        $('#itemSection').css("display","none")
-        $('#orderSection').css("display","none")
-    }
-    function viewItemForm(){
-        $('#homeSection').css("display","none")
-        $('#customerSection').css("display","none")
-        $('#orderSection').css("display","none")
-        $('#itemSection').css("display","inherit")
-    }
-    function viewOrderForm(){
-        $('#homeSection').css("display","none")
-        $('#customerSection').css("display","none")
-        $('#itemSection').css("display","none")
-        $('#orderSection').css("display","inherit")
-    }
-
-    function showNewCustomer(id,boo) {
-        if (boo){
-
-            let customerArr=JSON.parse(localStorage.getItem(cusData));
-            $('#customerIDC').val(customerArr[id].customerID);
-            $('#customerNameC').val(customerArr[id].name);
-            $('#customerAddressC').val(customerArr[id].address);
-            $('#customerMobileC').val(customerArr[id].mobile);
-            $('#customerSalaryC').val(customerArr[id].salary);
-        }else {
-        $('#customerIDC').val(id);
-        $('#customerNameC').val("");
-        $('#customerAddressC').val("");
-        $('#customerMobileC').val("");
-        $('#customerSalaryC').val("");
-        }
-        $('#newCustomerForm').css({
-            visibility: "visible",
-            top:"50%",
-            transform: "translate(-50%,-50%)scale(1)",
-        })
-    }
-
-    function showNewItem(id,boo){
-        if (boo){
-            let item=JSON.parse(localStorage.getItem(itemData));
-            $('#itemCodeI').val(item[id].itemCode);
-            $('#itemNameI').val(item[id].name);
-            $('#itemQTYI').val(item[id].qty);
-            $('#itemPriceI').val(item[id].price);
-        }else {
-            $('#itemCodeI').val("");
-            $('#itemNameI').val("");
-            $('#itemQTYI').val("");
-            $('#itemPriceI').val("");
-        }
-        $('#newItemForm').css({
-            visibility: "visible",
-            top:"50%",
-            transform: "translate(-50%,-50%)scale(1)",
-        })
-    }
-
-    function closeNewCustomer(){
-        $('#newCustomerForm').css({
-            transform: "translate(-50%,-50%)scale(0.1)",
-            top:"0%",
-            // transition: "transform 0.1s,top 0.1s",
-            visibility: "hidden"
-        })
-    }
-
-    function closeNewItem(){
-        $('#newItemForm').css({
-            transform: "translate(-50%,-50%)scale(0.1)",
-            top:"0%",
-            // transition: "transform 0.1s,top 0.1s",
-            visibility: "hidden"
-        })
-    }
-    function saveNewItem(){
-        let itemCode = $('#itemCodeI').val();
-        let name = $('#itemNameI').val();
-        let qty = $('#itemQTYI').val();
-        let price = $('#itemPriceI').val();
-        var data=`
-                <tr>
-                    <th scope="row">${itemCode}</th>
-                    <td>${name}</td>
-                    <td>${qty}</td>
-                    <td>${price}</td>
-                    <td width="15%">
-                        <button class="btn btn-success" onclick="showNewItem()">Edite</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>`
-        var data2=`<option value="${name}">`
-        $('#tableItemBody').append(data);
-        $('#datalistOptions').append(data2);
-        closeNewItem();
-    }
-
-    $('#btnViewCustomers').click(viewCustomersForm);
-    $('#navViewCustomer ').click(viewCustomersForm);
-    $('#navViewHome').click(viewHomeForm);
-    $('#btnNewCustomer').click(function () {showNewCustomer(0,false)});
-    $('#btnCanceNewCustomer').click(closeNewCustomer);
-    $('#btnSaveNewCustomer').click(addToCustomerArray);
-    $('#btnNewItem').click(showNewItem);
-    $('#btnCancelNewItem').click(closeNewItem);
-    $('#btnSaveNewItem').click(addToItemArray);
-    $('#btnViewItems').click(viewItemForm);
-    $('#navViewItem').click(viewItemForm);
-    $('#btnViewOrders').click(viewOrderForm);
-    $('#navViewOrders').click(viewOrderForm);
-loadCustomerData();
-loadItemData()
 </script>
 </body>
 </html>
