@@ -1,4 +1,4 @@
-class OrderDetail{
+export class OrderDetail{
     constructor(itemCode,name,price,qty,total) {
         this._itemCode=itemCode;
         this._name=name;
