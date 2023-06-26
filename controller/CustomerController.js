@@ -104,11 +104,11 @@ function showNewCustomer(customer) {
     if (!customer){
         customer=new Customer("","","","","");
     }
-        $('#customerIDC').val(customer._id);
-        $('#customerNameC').val(customer._name);
-        $('#customerAddressC').val(customer._address);
-        $('#customerMobileC').val(customer._mobile);
-        $('#customerSalaryC').val(customer._salary);
+    $('#customerIDC').val(customer._id);
+    $('#customerNameC').val(customer._name);
+    $('#customerAddressC').val(customer._address);
+    $('#customerMobileC').val(customer._mobile);
+    $('#customerSalaryC').val(customer._salary);
     $('#newCustomerForm').css({
         visibility: "visible",
         top:"50%",
@@ -167,7 +167,7 @@ function checkCustomerName(event){
 }
 
 $('#customerAddressC').on('keyup',(event) =>{
-   checkCustomerAddress(event);
+    checkCustomerAddress(event);
 });
 function checkCustomerAddress(event){
     if (cusAddressRegx.test($('#customerAddressC').val())){

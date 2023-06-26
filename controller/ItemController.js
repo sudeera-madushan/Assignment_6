@@ -8,9 +8,12 @@ const itemPriceRegx = /^\d+(,\d{3})*(\.\d{1,2})?$/;
 
 let loadItemData= function (){
     let pre_data=localStorage.getItem(itemData);
-    let item_data_arr=JSON.parse(pre_data);
+    let item_data_arr=[]
+    if (pre_data){
+        item_data_arr=JSON.parse(pre_data);
+    }
 
-    if (item_data_arr) {
+    if (item_data_arr.length>0) {
         $('#tableItemBody').empty();
         item_data_arr.map((result, index) => {
             var data = `
@@ -36,10 +39,10 @@ function showNewItem(item){
     if (!item){
         item=new Item("","","","");
     }
-        $('#itemCodeI').val(item._id);
-        $('#itemNameI').val(item._name);
-        $('#itemQTYI').val(item._qty);
-        $('#itemPriceI').val(item._price);
+    $('#itemCodeI').val(item._id);
+    $('#itemNameI').val(item._name);
+    $('#itemQTYI').val(item._qty);
+    $('#itemPriceI').val(item._price);
     $('#newItemForm').css({
         visibility: "visible",
         top:"50%",
@@ -65,9 +68,9 @@ function addToItemArray(){
         data_arr = JSON.parse(pre_data);
     }
     let item = new Item($('#itemCodeI').val(),
-            $('#itemNameI').val(),
-            $('#itemQTYI').val(),
-            $('#itemPriceI').val());
+        $('#itemNameI').val(),
+        $('#itemQTYI').val(),
+        $('#itemPriceI').val());
     let index =checkItemRecent(data_arr,item._id);
     if (index!=-1) {
         data_arr.splice(index,1,item)
@@ -179,7 +182,7 @@ $('#btnSaveNewItem').on('click',(event) =>{
     }
 });
 $('#itemPriceI').on('keyup',(event) =>{
-   checkItemPrice(event);
+    checkItemPrice(event);
 });
 
 // $('#customerNameC').on('keyup',(event) =>{

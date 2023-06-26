@@ -7,22 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 
-<!--    <style>-->
-<!--        body>nav>section{-->
-<!--            background-color: blueviolet;-->
-<!--            position: relative;-->
-<!--            width: 500px;-->
-<!--            height: 100%;-->
-<!--            transition-property: width;-->
-<!--            transition-duration: 4s;-->
-<!--        }-->
-<!--        body>nav>section:hover{-->
-<!--            width: 50vw;-->
-<!--            background-color: crimson;-->
-<!--            transition-property: all;-->
-<!--            transition-duration: 4s;-->
-<!--        }-->
-<!--    </style>-->
+    <!--    <style>-->
+    <!--        body>nav>section{-->
+    <!--            background-color: blueviolet;-->
+    <!--            position: relative;-->
+    <!--            width: 500px;-->
+    <!--            height: 100%;-->
+    <!--            transition-property: width;-->
+    <!--            transition-duration: 4s;-->
+    <!--        }-->
+    <!--        body>nav>section:hover{-->
+    <!--            width: 50vw;-->
+    <!--            background-color: crimson;-->
+    <!--            transition-property: all;-->
+    <!--            transition-duration: 4s;-->
+    <!--        }-->
+    <!--    </style>-->
     <style>
         body>section>section>div{
             height: 25vh;
@@ -46,63 +46,122 @@
             transition: transform 0.1s,top 0.1s;
             box-shadow: 5px 5px 20px 5px;
         }
+        .invoice{
+            background: white;
+            border: 10px gray solid;
+            position: absolute;
+            width: 48vw;
+            /*height: 47vw;*/
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            /*bottom: 0;*/
+            display: none;
+        }
+        .invoice h1{
+            font-weight: 800;
+            left: -14rem;
+            position: relative;
+            top: -1rem;
+        }
+        .invoice h2{
+            position: relative;
+            top: -2rem;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        .invoice h3{
+
+            position: relative;
+            top: -2rem;
+            right: -11rem;
+            font-size: 17px;
+
+        }
+        .invoice p{
+            position: relative;
+            left: -12rem;
+            top: -4rem;
+            margin-bottom: 0;
+        }
+        .invoice .details{
+            position: static;
+            margin-bottom: 0;
+            font-weight: 700;
+            text-align: end;
+            margin-right: 2rem;
+        }
+        .invoice button{
+            text-align: right;
+            /* align-items: end; */
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        }
+        #close-invoice{
+            right: 4rem;
+        }
+        .invoice table{
+            margin-top: -4rem;
+        }
     </style>
 </head>
 <body>
-<!--Customer Form -->
+<!--Customer Form-->
 <div class="container row popup text-start d-flex" id="newCustomerForm">
     <div class="col-12" style="height: 50px">
-            <label for="customerIDC" class="form-check-label">Customer ID :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" id="customerIDC">
+        <label for="customerIDC" class="form-check-label">Customer ID :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" id="customerIDC">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="customerNameC" class="form-check-label">Name :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="Name" aria-label="name" id="customerNameC">
+        <label for="customerNameC" class="form-check-label">Name :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="Name" aria-label="name" id="customerNameC">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="customerAddressC" class="form-check-label">Address :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="Address" aria-label="address" id="customerAddressC">
+        <label for="customerAddressC" class="form-check-label">Address :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="Address" aria-label="address" id="customerAddressC">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="customerMobileC" class="form-check-label">Mobile :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="0770000000" aria-label="mobile" id="customerMobileC">
+        <label for="customerMobileC" class="form-check-label">Mobile :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="0770000000" aria-label="mobile" id="customerMobileC">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="customerSalaryC" class="form-check-label">Salary :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="10000.0" aria-label="salary" id="customerSalaryC">
+        <label for="customerSalaryC" class="form-check-label">Salary :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="10000.0" aria-label="salary" id="customerSalaryC">
     </div>
     <div class="col-6"></div>
     <div class="col-3 p-4 " style="height: 50px" id="btnSaveNewCustomer">
-            <button class="btn btn-success">Save</button>
+        <button class="btn btn-success">Save</button>
     </div>
     <div class="col-3 p-4" style="height: 50px" id="btnCanceNewCustomer">
-            <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-danger">Cancel</button>
     </div>
 </div>
 <!--Item Form-->
 <div class="container row popup text-start d-flex" id="newItemForm">
     <div class="col-12" style="height: 50px">
-            <label for="itemCodeI" class="form-check-label">Item Code :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" id="itemCodeI">
+        <label for="itemCodeI" class="form-check-label">Item Code :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" id="itemCodeI">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="itemNameI" class="form-check-label">Name :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="Name" aria-label="name" id="itemNameI">
+        <label for="itemNameI" class="form-check-label">Name :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="Name" aria-label="name" id="itemNameI">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="itemQTYI" class="form-check-label">QTY :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="0" aria-label="address" id="itemQTYI">
+        <label for="itemQTYI" class="form-check-label">QTY :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="0" aria-label="address" id="itemQTYI">
     </div>
     <div class="col-12" style="height: 50px">
-            <label for="itemPriceI" class="form-check-label">Price :</label>
-            <input class="form-control form-control-sm" type="text" placeholder="0.0" aria-label="mobile" id="itemPriceI">
+        <label for="itemPriceI" class="form-check-label">Price :</label>
+        <input class="form-control form-control-sm" type="text" placeholder="0.0" aria-label="mobile" id="itemPriceI">
     </div>
     <div class="col-6"></div>
     <div class="col-3 p-4 " style="height: 50px" id="btnSaveNewItem">
-            <button class="btn btn-success">Save</button>
+        <button class="btn btn-success">Save</button>
     </div>
     <div class="col-3 p-4" style="height: 50px" id="btnCancelNewItem">
-            <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-danger">Cancel</button>
     </div>
 </div>
 
@@ -262,12 +321,12 @@
             <hr>
             <div class="row">
                 <div class="col-6">
-                    <label for="customerIDC" class="form-check-label">Order ID :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <label for="orderID" class="form-check-label">Order ID :</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="orderID" id="orderID">
                 </div>
                 <div class="col-6">
-                    <label for="customerIDC" class="form-check-label">Date :</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="C001" aria-label="customerID" >
+                    <label for="date" class="form-check-label">Date :</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="2023/00/00" aria-label="date" id="date">
                 </div>
             </div>
             <div class="row">
@@ -346,7 +405,7 @@
         <div class="col-xl-2 col-sm-12 text-start p-2">
             <hr>
             <div class="row">
-                <p class="h4">Total :     0.0</p>
+                <p class="h4" id="totalAll">Total :     0.0</p>
             </div>
             <div class="row">
                 <p class="h4">Sub Total : 0.0</p>
@@ -370,7 +429,7 @@
             </div>
 
             <div class=" row text-end p-2">
-                <button class="btn btn-danger ">Purchase Order</button>
+                <button class="btn btn-danger " id="purchase-order-btn">Purchase Order</button>
             </div>
             <br>
         </div>
@@ -395,6 +454,39 @@
             </table>
         </div>
     </div>
+    <section class="invoice">
+        <hr>
+        <h1>Invoice</h1>
+        <h2>JSD Privet Limited</h2>
+        <h3>sjdshhjsfhkjkjfd@gmail.com</h3>
+        <h3>0112248878</h3>
+        <p id="invoice-order-id">Order ID : 00001</p>
+        <p id="invoice-order-date">Date : 00001</p>
+        <p id="invoice-customer-id">Customer ID: C001</p>
+        <p id="invoice-customer-name">Customer Name : Sudeera</p>
+        <table class="table table-active rounded " >
+            <thead class="table-active">
+            <tr>
+                <th scope="col">Item Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">QTY</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody id="tableincvoiceBody">
+            </tbody>
+        </table>
+        <hr>
+        <p class="details" id="total">Total : 1000.00</p>
+        <p class="details" id="cash">Cash : 5000.00</p>
+        <p class="details" id="discount">Discount : 10.0%</p>
+        <p class="details" id="sub-total">Total : 900.00</p>
+        <p class="details" id="balance">Balance : 4100.00</p>
+        <button class="btn" id="print-invoice">Print</button>
+        <button class="btn" id="close-invoice">Close</button>
+        <hr>
+    </section>
 </section>
 
 <script src="assest/bootstrap/js/bootstrap.min.js"></script>

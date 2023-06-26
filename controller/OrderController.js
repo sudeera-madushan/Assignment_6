@@ -1,8 +1,9 @@
 import {OrderDetail} from "../model/OrderDetail.js";
 
-const cartData="CART";
 const cusData="DATA";
 const itemData="ITEMS";
+let cart=[];
+
 function searchCusOrder(){
     let customerId=$('#customerIDOrder').val();
     let customersArr=JSON.parse(localStorage.getItem(cusData));
@@ -58,7 +59,8 @@ function searchItemMethod(arr,id){
 }
 
 function reloadCartData(){
-    let cart=JSON.parse(localStorage.getItem(cartData));
+    // let cart=JSON.parse(localStorage.getItem(cartData));
+    $('#tableCartBody').empty();
     cart.map((object,index) =>{
         var data = `
                 <tr>
@@ -77,51 +79,117 @@ function reloadCartData(){
     });
 }
 
+function setTotal() {
+    let total=0;
+    cart.map((value) => {
+        total+=value._total;
+    })
+    $('#totalAll').empty();
+    $('#totalAll').append("Total :     "+(total));
+}
+
 function addToCartArray(){
-    let pre_data = localStorage.getItem(cartData);
-    let data_arr=[];
-    if(pre_data) {
-        data_arr = JSON.parse(pre_data);
-    }
+    let items =[];
+    items=JSON.parse(localStorage.getItem("ITEMS"));
+    var itemRecent;
+
     let orderDetail = new OrderDetail($('#itemCodeOrder').val(),
         $('#itemNameOrder').val(),
+        $('#itemPriceOrder').val(),
         $('#itemQuentityOrder').val(),
-        $('#itemPriceOrder').val(),0);
-    if (orderDetail.itemCode && orderDetail.name && orderDetail.qty && orderDetail.price) {
-        let index = checkItemRecent(data_arr, orderDetail.itemCode);
-        if (-1 !== index) {
-            data_arr[index].name=orderDetail.name;
-        } else {
-            orderDetail.total=orderDetail.price*orderDetail.qty;
-            data_arr.unshift(orderDetail);
+        0);
+    for (let i = 0; i < items.length; i++) {
+        if (items[i]._id===orderDetail._itemCode) {
+            itemRecent = items[i];
         }
-        // let cart = {
-        //     itemCode: itemCode,
-        //     name: itemName,
-        //     price: itemPrice,
-        //     qty: itemQty,
-        //     total: itemQty * itemPrice
-        // }
+    }
+
+    if (orderDetail._itemCode && orderDetail._name && orderDetail._qty && orderDetail._price) {
+        let index = checkItemRecent(cart, orderDetail._itemCode);
+        if (-1 !== index) {
+            let cartQTY = parseFloat(cart[index]._qty)+parseFloat(orderDetail._qty);
+            if (itemRecent._qty>=cartQTY){
+                cart[index]._qty=cartQTY;
+                cart[index]._total=parseFloat(cart[index]._qty)*parseFloat(orderDetail._price);
+            }else {
+                alert("Low Quantity")
+            }
+
+        } else {
+            if (itemRecent._qty>=orderDetail._qty){
+                orderDetail._total=orderDetail._price*orderDetail._qty;
+                cart.unshift(orderDetail);
+            }else {
+                alert("Low Quantity")
+            }
+
+        }
 
     }
-    localStorage.setItem(cartData, JSON.stringify(data_arr));
     reloadCartData();
-
+    setTotal();
 }
 function checkItemRecent(arr,id){
+
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i].itemCode===id) {
+        if (arr[i]._itemCode===id) {
             return i;
         }
     }
     return -1;
 }
 
+function addInvoiceDetails() {
+    $('#tableincvoiceBody').empty();
+    cart.map((object,index) =>{
+        var data = `
+                <tr>
+                    <th scope="row">${object._itemCode}</th>
+                    <td>${object._name}</td>
+                    <td>${object._price}</td>
+                    <td>${object._qty}</td>
+                    <td>${object._total}</td>
+                </tr>`
+        $('#tableincvoiceBody').append(data);
+    });
+    $('#invoice-order-id').empty();
+    $('#invoice-order-id').append("Order ID : "+$('#orderID').val());
+    $('#invoice-customer-id').empty();
+    $('#invoice-customer-id').append("Customer ID : "+$('#customerIDOrder').val());
+    $('#invoice-customer-name').empty();
+    $('#invoice-customer-name').append("Customer Name : "+$('#customerNameOrder').val());
+    $('#invoice-order-date').empty();
+    $('#invoice-order-date').append("Date : "+$('#date').val());
+    $('.invoice').css({display: 'inherit'})
+}
+
+function purchaseOrder() {
+    let itemArr=JSON.parse(localStorage.getItem(itemData));
+    cart.map((values => {
+        for (let i = 0; i < itemArr.length; i++) {
+            if (values._itemCode===itemArr[i]._id){
+                itemArr[i]._qty=parseFloat(itemArr[i]._qty)-parseFloat(values._qty);
+            }
+        }
+    }));
+    localStorage.setItem("ITEMS",JSON.stringify(itemArr));
+    addInvoiceDetails();
+    cart=[];
+    reloadCartData();
+}
 
 $('#searchCusOrder').click(searchCusOrder);
 $('#searchItemOrder').click(searchItemOrder);
 $('#addToCartBtn').click(addToCartArray);
 $('#btn').click(addToCartArray);
 
+
+$('#purchase-order-btn').click(purchaseOrder);
+
+function closeInvoice() {
+    $('.invoice').css({display:'none'})
+}
+
+$('#close-invoice').click(closeInvoice)
 
 reloadCartData();
